@@ -1,1 +1,1 @@
-# Self-distillation of U-shaped networks for 3D cardiac image segmentation with shape priors
+# Self-Distillation of U-shaped Networks for 3D Cardiac Image Segmentation with Shape Priors
