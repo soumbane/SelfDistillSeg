@@ -13,7 +13,7 @@ This is the official PyTorch implementation of our paper "SELF-DISTILLATION OF U
 The following steps are required to replicate our work:
 
 1. Download datasets.
-* MMWHS Dataset - Download [MMWHS data](https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series) (download `time_series_covid19_confirmed_US.csv` for daily US infected cases and `time_series_covid19_deaths_US.csv` for daily US death cases) and save in `data/COVID_JHU` directory. This project used `Mar 15,2020 - Nov 30,2021` for analysis. 
+* MMWHS Dataset - Download [MMWHS data](https://zmiclab.github.io/zxh/0/mmwhs/) and save the CT images `ct_train_..._image.nii.gz` in `Data_3D/CT/Data_MMWHS/imagesTr` directory and the CT ground-truth segmentation labels `ct_train_..._label.nii.gz` in `Data_3D/CT/Data_MMWHS/labelsTr` directory. 
 
 2. Generate Feature Matrix (X) and Adjacency Matrix (W) from downloaded datasets.
 * JHU Dataset (US) - Inside the folder `data/COVID_JHU`, run the file `Generate_51_states_X_W.py` to generate X and W matrix for 50 states of US and Washington D.C. (51 nodes of graph).
