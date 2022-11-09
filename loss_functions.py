@@ -12,46 +12,6 @@ from torchmanager import losses
 from torchmanager_core import _raise
 
 
-class FocalTverskyLoss(TverskyLoss):
-    def __init__(
-        self, 
-        include_background: bool = True,
-        to_onehot_y: bool = False,
-        sigmoid: bool = False,
-        softmax: bool = False,
-        other_act: Optional[Callable] = None,
-        alpha: float = 0.5,
-        beta: float = 0.5,
-        gamma: int = 1,
-    ) -> None:
-
-        super().__init__(include_background, to_onehot_y, sigmoid, softmax, other_act, alpha, beta, reduction=LossReduction.NONE)
-
-        self.include_background = include_background
-        self.to_onehot_y = to_onehot_y
-        self.sigmoid = sigmoid
-        self.softmax = softmax
-        self.alpha = alpha
-        self.beta = beta
-        self.gamma = gamma
-
-    def forward(self, input: torch.Tensor, target: torch.Tensor) -> torch.Tensor:
-        """
-        Args:
-            input: the shape should be BNH[WD].
-            target: the shape should be BNH[WD].
-
-        Returns:
-            ft_loss: the focal Tversky loss.
-
-        """
-        
-        tversky_loss = super().forward(input=input, target=target) # Tversky Loss
-        ft_loss = tversky_loss ** (1/self.gamma)
-
-        return torch.mean(ft_loss)
-
-
 class BoundaryLoss(losses.Loss):
 
     def __init__(self, *args, include_background: bool = True, **kwargs) -> None:
@@ -210,36 +170,6 @@ class Self_Distillation_Loss_KL(losses.MultiLosses):
 
         ############################################################################################################
         
-        del l
-        # return loss
-        assert isinstance(loss, torch.Tensor), _raise(TypeError("The total loss is not a valid `torch.Tensor`."))
-        return loss
-
-
-# For L2 loss between feature maps/hints dec3_f [target] and feature maps (dec1_f,dec2_f) [input]
-class Self_Distillation_Loss_L2(losses.MultiLosses):
-    
-    def forward(self, input: Union[Sequence[torch.Tensor], torch.Tensor], target: Any) -> torch.Tensor:
-
-        if isinstance(input["out"], torch.Tensor): 
-            assert (self.training == False), _raise(TypeError("Should be in validation mode.")) 
-            loss = torch.tensor(0, dtype=input["out"].dtype, device=input["out"].device)
-            return loss
-
-        target: torch.Tensor = input["out"][6] # dec3_f: Teacher model output (deepest decoder)
-        
-        assert isinstance(target, torch.Tensor), _raise(TypeError("Target should be a tensor.")) 
-
-        # initilaize
-        loss = 0
-        l = 0
-
-        # get all L2 losses between feature maps/hints dec3_f[target] and feature maps (dec1_f,dec2_f)[input]
-        for i, fn in enumerate(self.losses):
-            assert isinstance(fn, losses.Loss), _raise(TypeError(f"Function {fn} is not a Loss object."))
-            l = fn(input["out"][i+4], target)
-            loss += l
-
         del l
         # return loss
         assert isinstance(loss, torch.Tensor), _raise(TypeError("The total loss is not a valid `torch.Tensor`."))
