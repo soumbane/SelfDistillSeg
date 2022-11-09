@@ -17,9 +17,10 @@ The following steps are required to replicate our work:
 2. Generate shape priors (level-set based distance maps) from downloaded dataset.
 * Run the file `Generate_3D_distance_maps_from_GT_labels_Cardiac_MMWHS_Challenge.py` to generate the shape priors (distance maps) `ct_train_..._dist_map.nii.gz` and save the CT ground-truth (GT) segmentation shape priors (distance maps) in `Data_3D/CT/Data_MMWHS/distmapsTr` directory.
 
-3. Generate Train, Validation and Test datasets from the generated X matrix.
-* We divided the entire dataset in chronological order with 80% training, 10% validation and 10% testing.
-* Run the file `generate_training_data.py` to generate the processed files `train.npz, val.npz, test.npz` from X matrix and save the processed files in `data/COVID_JHU/processed` or `data/COVID_NYT/processed`. Use the `confirmed` or `deaths` in the argument to generate infected and death cases processed files respectively.
+3. Generate Train and Validation datasets.
+* We divided the entire dataset (20 patients) into 80% training (16 patients) and 20% validation (4 patients).
+* The file `challenge.py` generates the training and validation datasets and performs the necessary transforms for training images and labels and validation images and labels.
+* The file `challenge_dist_map.py` generates the training and validation datasets and performs the necessary transforms for training images, labels and shape priors (distance maps) and validation images and labels. the processed files `train.npz, val.npz, test.npz` from X matrix and save the processed files in `data/COVID_JHU/processed` or `data/COVID_NYT/processed`. Use the `confirmed` or `deaths` in the argument to generate infected and death cases processed files respectively.
 ```
 # For JHU Daily Infected cases data
 python generate_training_data.py --traffic_df_filename "data/COVID_JHU/covid19_confirmed_US_51_states_X_matrix_final.csv" 
