@@ -12,13 +12,11 @@ This is the official PyTorch implementation of our paper "SELF-DISTILLATION OF U
 ## Get Started
 The following steps are required to replicate our work:
 
-1. Download datasets.
-* MMWHS Dataset - Download [MMWHS data](https://zmiclab.github.io/zxh/0/mmwhs/) and save the CT images `ct_train_..._image.nii.gz` in `Data_3D/CT/Data_MMWHS/imagesTr` directory and the CT ground-truth segmentation labels `ct_train_..._label.nii.gz` in `Data_3D/CT/Data_MMWHS/labelsTr` directory. 
+1. Download dataset.
+* MMWHS Dataset - Download [MMWHS data](https://zmiclab.github.io/zxh/0/mmwhs/) and save the CT images `ct_train_..._image.nii.gz` in `Data_3D/CT/Data_MMWHS/imagesTr` directory and the CT ground-truth (GT) segmentation labels `ct_train_..._label.nii.gz` in `Data_3D/CT/Data_MMWHS/labelsTr` directory. 
 
-2. Generate Feature Matrix (X) and Adjacency Matrix (W) from downloaded datasets.
-* JHU Dataset (US) - Inside the folder `data/COVID_JHU`, run the file `Generate_51_states_X_W.py` to generate X and W matrix for 50 states of US and Washington D.C. (51 nodes of graph).
-* JHU Dataset (Michigan) - Inside the folder `data/COVID_JHU`, run the file `Generate_51_states_X_W_Michigan.py` to generate X and W matrix for 83 counties of the state of Michigan (83 nodes of graph).
-* NYT Dataset (US) - Inside the folder `data/COVID_NYT`, run the file `Generate_51_states_X_W_NYT.py` to generate X matrix for 50 states of US and Washington D.C. (51 nodes of graph). We used the same adjacency matrix (W) as generated using JHU dataset.
+2. Generate shape priors (level-set based distance maps) from downloaded dataset.
+* Run the file `Generate_3D_distance_maps_from_GT_labels_Cardiac_MMWHS_Challenge.py` to generate the shape priors (distance maps) `ct_train_..._dist_map.nii.gz` and save the CT ground-truth (GT) segmentation shape priors (distance maps) in `Data_3D/CT/Data_MMWHS/distmapsTr` directory.
 
 3. Generate Train, Validation and Test datasets from the generated X matrix.
 * We divided the entire dataset in chronological order with 80% training, 10% validation and 10% testing.
