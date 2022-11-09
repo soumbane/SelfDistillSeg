@@ -7,7 +7,6 @@ This is the official PyTorch implementation of our paper "SELF-DISTILLATION OF U
 * PyTorch >= 1.12
 * [torchmanager](https://github.com/kisonho/torchmanager) >= 1.0.6
 * [Monai](https://monai.io/) >= 0.9.0
-* See requirements.txt (All of them are not required)
 
 ## Get Started
 The following steps are required to replicate our work:
@@ -54,4 +53,7 @@ python test.py --checkpoint "checkpoints/pretrained_models/JHU_States_Infected/S
 # For NYT Daily Death cases data with our trained model
 python test.py --checkpoint "checkpoints/pretrained_models/NYT_States_Deaths/STST/exp_1_19.06_best_model.pth"
 ```
+
+## Notes
+* Please choose the correct configuration file with the `DATASET` variable in both `train.py` and `test.py`.
 
