@@ -21,12 +21,19 @@ The following steps are required to replicate our work:
 * We divided the entire dataset (20 patients) into 80% training (16 patients) and 20% validation (4 patients).
 * The file `challenge.py` generates the training and validation datasets and performs the necessary transforms for training and validation images and labels.
 * The file `challenge_dist_map.py` generates the training and validation datasets and performs the necessary transforms for training and validation images, labels and shape priors (distance maps).
+* The functions in the above files are called from the main training script. 
 
 ## Training
 
-1. Train the model
+1. Train the four models either with their respective training script. An example of training with deep supervision + self-distillation with shape priors is:
+
 ```
-python train.py --epochs 100 --learning_rate 0.001 --expid 1 --print_every 20
+python train_SelfDistil_DistMaps.py /path_to_data/Data_3D/CT/Data_MMWHS /path_to_last_trained_model/trained_models/last_CT_challenge_data_SelfDistil_DistMaps.pth --img_size 96 96 96 --batch_size 1 --epochs 600 --experiment CT_Dice_KL_Boundary_Loss_challenge_data_SelfDist_DistMaps.exp --training_split 4 --device cuda:0 --show_verbose
+```
+
+2. Another way to train the models is by running the shell script `train.sh`:
+```
+. train.sh
 ```
 
 ## Testing
