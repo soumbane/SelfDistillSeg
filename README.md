@@ -52,14 +52,14 @@ manager = Manager.from_checkpoint("experiments/CT_Dice_KL_Boundary_Loss_challeng
 ```
 
 ## Notes
-* Use the `def load(...)` function from `data/challenge.py` to load the training and validation images and labels for `train_basicUNETR.py`, `train_DeepSuperOnly.py` and `train_SelfDistil_Original.py` as follows:
+* Use the `def load(...)` function from `data/challenge.py` to load the training and validation images and labels for `train_basicUNETR.py`, `train_DeepSuperOnly.py`, `train_SelfDistil_Original.py` and `test.py` as follows:
 
 ```
 # load dataset - Load MMWHS Challenge Data
 training_dataset, validation_dataset, num_classes = data.load_challenge(config.data, config.img_size, train_split=config.training_split, show_verbose=config.show_verbose)        
 ```
 
-* Use the `def loadBoun(...)` function from `data/challenge_dist_map.py` to load the training and validation images, labels and shape priors (distance maps) for `train_SelfDistil_DistMaps.py` as follows:
+* Use the `def loadBoun(...)` function from `data/challenge_dist_map.py` to load the training and validation images, labels and shape priors (distance maps) for `train_SelfDistil_DistMaps.py` and `test.py` as follows:
 
 ```
 # load dataset - Load MMWHS Challenge Data
