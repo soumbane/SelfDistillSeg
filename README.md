@@ -31,17 +31,24 @@ The following steps are required to replicate our work:
 python train_SelfDistil_DistMaps.py /path_to_data/Data_3D/CT/Data_MMWHS /path_to_last_trained_model/trained_models/last_CT_challenge_data_SelfDistil_DistMaps.pth --img_size 96 96 96 --batch_size 1 --epochs 600 --experiment CT_Dice_KL_Boundary_Loss_challenge_data_SelfDist_DistMaps.exp --training_split 4 --device cuda:0 --show_verbose
 ```
 
-2. Another way to train the models is by running the shell script `train.sh`:
+2. Another way to train is by running the shell script `train.sh` with the required models:
+
 ```
 . train.sh
 ```
 
 ## Testing
 
-1. Test the model
+1. Test with the model with the highest validation dice score during training. This model is saved as `best.model` in the `experiments/` folder.
+* For example: the best model while training with shape priors (distance maps) `train_SelfDistil_DistMaps.py` is saved in `experiments/CT_Dice_KL_Boundary_Loss_challenge_data_SelfDist_DistMaps.exp/best.model`
 
 ```
 python test.py 
+```
+
+* The path to the `best.model` checkpoint is given in the `test.py` file. An example of testing with the best model for `SelfDistil_DistMaps` is:
+```
+manager = Manager.from_checkpoint("experiments/CT_Dice_KL_Boundary_Loss_challenge_data_SelfDist_DistMaps.exp/best.model")
 ```
 
 ## Notes
