@@ -19,42 +19,24 @@ The following steps are required to replicate our work:
 
 3. Generate Train and Validation datasets.
 * We divided the entire dataset (20 patients) into 80% training (16 patients) and 20% validation (4 patients).
-* The file `challenge.py` generates the training and validation datasets and performs the necessary transforms for training images and labels and validation images and labels.
-* The file `challenge_dist_map.py` generates the training and validation datasets and performs the necessary transforms for training images, labels and shape priors (distance maps) and validation images and labels. the processed files `train.npz, val.npz, test.npz` from X matrix and save the processed files in `data/COVID_JHU/processed` or `data/COVID_NYT/processed`. Use the `confirmed` or `deaths` in the argument to generate infected and death cases processed files respectively.
-```
-# For JHU Daily Infected cases data
-python generate_training_data.py --traffic_df_filename "data/COVID_JHU/covid19_confirmed_US_51_states_X_matrix_final.csv" 
-
-# For NYT Daily Death cases data
-python generate_training_data.py --traffic_df_filename "data/COVID_NYT/covid19_NYT_deaths_US_51_states_X_matrix_final.csv"
-```
+* The file `challenge.py` generates the training and validation datasets and performs the necessary transforms for training and validation images and labels.
+* The file `challenge_dist_map.py` generates the training and validation datasets and performs the necessary transforms for training and validation images, labels and shape priors (distance maps).
 
 ## Training
 
-1. Define paths and hyper-parameters in configuration files.
-* Refer to the files `config/COVID_JHU.conf` and `config/COVID_NYT.conf` for the data paths, hyper-parameters and model configurations used for training and testing. 
-* The `sensors_distance` in the config files indicate the path to the adjacency matrix W.
-
-2. Train the model
+1. Train the model
 ```
 python train.py --epochs 100 --learning_rate 0.001 --expid 1 --print_every 20
 ```
 
 ## Testing
 
-1. The pre-trained models could be found in `checkpoints/pretrained_models`
-* Refer to the required folder `JHU or NYT`, `Infected or Deaths` for infected or death cases respectively and our model is in folder `STST`
+1. Test the model
 
-2. Test the model
-* An example for testing with `COVID_JHU` dataset's daily infected cases and `COVID_NYT` dataset's daily death cases with our model `STST` (name in code for STSGT model) is given here. The `... _best_model.pth` indicates the model with the lowest Mean Absolute Error (MAE) on the validation set. 
 ```
-# For JHU Daily Infected cases data with our trained model
-python test.py --checkpoint "checkpoints/pretrained_models/JHU_States_Infected/STST/exp_2_1654.67_best_model.pth"
-
-# For NYT Daily Death cases data with our trained model
-python test.py --checkpoint "checkpoints/pretrained_models/NYT_States_Deaths/STST/exp_1_19.06_best_model.pth"
+python test.py 
 ```
 
 ## Notes
-* Please choose the correct configuration file with the `DATASET` variable in both `train.py` and `test.py`.
+* 
 
