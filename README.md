@@ -1,6 +1,6 @@
 # Self-Distillation of U-shaped Networks for 3D Cardiac Image Segmentation with Shape Priors
 
-This is the official PyTorch implementation of our paper "SELF-DISTILLATION OF U-SHAPED NETWORKS FOR 3D CARDIAC IMAGE SEGMENTATION WITH SHAPE PRIORS" that is under review for IEEE ISBI 2023.
+This is the official PyTorch implementation of our paper "SELF-DISTILLATION OF U-SHAPED NETWORKS FOR 3D CARDIAC IMAGE SEGMENTATION WITH SHAPE PRIORS" that is under review for [IEEE ISBI 2023](http://2023.biomedicalimaging.org/en/).
 
 ## Requirements
 * python >= 3.9
